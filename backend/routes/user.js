@@ -15,13 +15,15 @@ const signupBody=zod.object({
 //----------------------------SIGNUP-----------
 
 router.post("/signup",async (req,res)=>{
-    console.log(req.body);
+    
     const parseResult=signupBody.safeParse(req.body)
     if(!parseResult.success){
+       
         return res.status(411).json({
             message:'incorrect input',
             error:parseResult.error.errors
         });
+       
     }
     const existingUser= await User.findOne({
         username:req.body.username
