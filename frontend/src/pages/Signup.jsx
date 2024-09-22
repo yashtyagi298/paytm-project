@@ -7,9 +7,9 @@ import { useState } from "react";
 import axios from 'axios';
 import {useNavigate } from "react-router-dom";
 export const Signup=()=>{
-    const [firstName,setFirstName]=useState("");
-    const [lastName,setLastName]=useState("");
-    const [userName,setUserName]=useState("");
+    const [firstname,setFirstName]=useState("");
+    const [lastname,setLastName]=useState("");
+    const [username,setUserName]=useState("");
     const [password,setPassword]=useState("");
     const navigate= useNavigate();
     
@@ -35,9 +35,9 @@ export const Signup=()=>{
                 <div className="pt-4">
                 <Button onClick={async ()=>{
                    const response = await  axios.post('http://localhost:3000/api/v1/user/signup',{
-                        userName,
-                        firstName,
-                        lastName,
+                        username,
+                        firstname,
+                        lastname,
                         password
                     },{
                         headers: {
