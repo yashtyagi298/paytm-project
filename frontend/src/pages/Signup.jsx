@@ -5,13 +5,15 @@ import { SubHeading } from "../components/SubHeading";
 import { InputBox } from "../components/InputBox";
 import { useState } from "react";
 import axios from 'axios';
-import { Navigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 export const Signup=()=>{
     const [firstName,setFirstName]=useState("");
     const [lastName,setLastName]=useState("");
     const [userName,setUserName]=useState("");
     const [password,setPassword]=useState("");
-
+    const navigate= useNavigate();
+    
+       
 
     return<div className="bg-slate-300 h-screen flex justify-center">
         <div className="flex flex-col justify-center">
@@ -31,20 +33,21 @@ export const Signup=()=>{
                     setPassword(e.target.value)
                 }} placeholder="J@hn12$" label={"Password"}/>
                 <div className="pt-4">
-                <Button onClick={async()=>{
-                        const response =await  axios.post("http://localhost:3000/api/v1/user/signup",{
-                          userName:userName,
-                          firstName:firstName, //firstName:firstName
-                          lastName:lastName,
-                          password:password
-                        },{
-                           headers:{
-                            'Content-Type':'application/json'
-                           } 
-                        });
-                        localStorage.setItem("token",response.data.token)
-                        Navigate("/dashboard")
-                    }} label={"Sign up"}/> 
+                <Button onClick={async ()=>{
+                   const response = await  axios.post('http://localhost:3000/api/v1/user/signup',{
+                        userName,
+                        firstName,
+                        lastName,
+                        password
+                    },{
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    console.log(response.data.token)
+                    localStorage.setItem("token", response.data.token)
+                    navigate("/dashboard");
+                }} label={"Sign up"}/> 
                 </div>
                 <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"}/>
 

@@ -17,6 +17,7 @@ const signupBody=zod.object({
 router.post("/signup",async (req,res)=>{
     
     const parseResult=signupBody.safeParse(req.body)
+    console.log(req.body)
     if(!parseResult.success){
        
         return res.status(411).json({
@@ -25,9 +26,12 @@ router.post("/signup",async (req,res)=>{
         });
        
     }
+
     const existingUser= await User.findOne({
         username:req.body.username
+    
     })
+ 
 
     if(existingUser){
         return res.status(411).json({
