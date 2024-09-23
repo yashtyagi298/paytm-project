@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 export const SendMoney = () => {
     const [searchParams]=useSearchParams();
     const id= searchParams.get("id");
     const name= searchParams.get("name");
     const [amount,setAmount]=useState(0);
     const [sent,setSent]=useState(false);
+    const navigate= useNavigate();
    console.log(id);
    console.log(name);
     return <div className="flex justify-center h-screen bg-gray-100">
@@ -55,8 +57,11 @@ export const SendMoney = () => {
                                     console.log(response.data)
                                     setSent(true);
                                 })
+                                setTimeout(() => {
+                                    navigate('/dashboard'); // Redirect to dashboard
+                                }, 1500); // 1.5 seconds delay before redirecting
                     }}className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white">
-                        {sent ? "sent":"Initiate Transfer"}
+                        {sent ? "Done":"Initiate Transfer"}
                     </button>
                 </div>
                 </div>
